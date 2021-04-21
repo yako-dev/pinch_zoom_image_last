@@ -17,3 +17,4 @@ public class SwiftPinchZoomImageLastPlugin: NSObject, FlutterPlugin {
         result(nil)
     }
 }
+}
