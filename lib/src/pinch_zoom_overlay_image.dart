@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import 'dart:ui' show lerpDouble;
 
 class PinchZoomOverlayImage extends StatefulWidget {
-  final Key key;
-  final Offset origin;
+  final Key? key;
+  final Offset? origin;
   final double width;
   final double height;
   final Widget image;
 
   PinchZoomOverlayImage({
     this.key,
-    @required this.origin,
-    @required this.width,
-    @required this.height,
-    @required this.image,
+    required this.origin,
+    required this.width,
+    required this.height,
+    required this.image,
   }) : super(key: key);
 
   @override
@@ -22,9 +22,9 @@ class PinchZoomOverlayImage extends StatefulWidget {
 
 class PinchZoomOverlayImageState extends State<PinchZoomOverlayImage>
     with TickerProviderStateMixin {
-  AnimationController reverseAnimationController;
-  Offset position;
-  double scale = 1.0;
+  late AnimationController reverseAnimationController;
+  Offset? position;
+  double? scale = 1.0;
 
   @override
   void initState() {
@@ -43,7 +43,7 @@ class PinchZoomOverlayImageState extends State<PinchZoomOverlayImage>
     return Stack(
       children: <Widget>[
         Opacity(
-          opacity: ((scale - 1.0) /
+          opacity: ((scale! - 1.0) /
                   ((MediaQuery.of(context).size.height / widget.height) - 1.0))
               .clamp(0.0, 1.0),
           child: Container(
@@ -51,12 +51,12 @@ class PinchZoomOverlayImageState extends State<PinchZoomOverlayImage>
           ),
         ),
         Positioned(
-          top: position.dy,
-          left: position.dx,
+          top: position!.dy,
+          left: position!.dx,
           width: widget.width,
           height: widget.height,
           child: Transform.scale(
-            scale: scale,
+            scale: scale!,
             child: widget.image,
           ),
         ),
@@ -77,9 +77,9 @@ class PinchZoomOverlayImageState extends State<PinchZoomOverlayImage>
   }
 
   TickerFuture reverse() {
-    Offset origin = widget.origin;
-    Offset reverseStartPosition = position;
-    double reverseStartScale = scale;
+    Offset? origin = widget.origin;
+    Offset? reverseStartPosition = position;
+    double? reverseStartScale = scale;
 
     reverseAnimationController = AnimationController(
       vsync: this,
